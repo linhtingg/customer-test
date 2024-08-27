@@ -12,6 +12,11 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
+    public Account getAccount(String accountNumber)
+    {
+        return accountRepository.getAccountByAccountNumber(accountNumber);
+    }
+
     public String withDrawMoney(String accNumber, Long amount)
     {
         Account acc = accountRepository.getAccountByAccountNumber(accNumber);
