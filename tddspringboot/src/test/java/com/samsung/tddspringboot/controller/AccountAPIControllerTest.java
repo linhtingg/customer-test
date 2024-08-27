@@ -31,7 +31,10 @@ public class AccountAPIControllerTest {
 
         Account result = (Account)response.getBody();
 
-        assertThat(result).isSameAs(fakeAccount);
+        //assertThat(result).isSameAs(fakeAccount);
+        assertThat(result.getName()).isEqualTo("Admin");
+        assertThat(result.getNumber()).isEqualTo("0541001542123");
+        assertThat(result.getMoney()).isEqualTo(1000000l);
 
     }
 }

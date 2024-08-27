@@ -53,4 +53,14 @@ public class AccountControllerTest {
                 .andExpect(content().string(containsString("<h1>Giao dịch thành công.</h1>")))
                 .andDo(print());
     }
+
+    @Test
+    public void test_api_with_mock_mvc() throws Exception {
+        Account fakeAccount = Account.builder().Name("Admin").Number("0541001542123").Money(1000000l).build();
+        when(accountService.getAccount("0541001542123")).thenReturn(fakeAccount);
+        this.mockMvc.perform(get("/api/account/0541001542123"))
+                .andExpect(content().string(containsString("\"name\":\"Admin\"")))
+                .andExpect(content().string(containsString("\"number\":\"0541001542123\"")))
+                .andDo(print());
+    }
 }
