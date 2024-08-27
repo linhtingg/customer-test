@@ -28,24 +28,18 @@ public class ReportTranslator {
 
     public String getTypeTranslate(String Type, String period) {
         String xmlContent = xmlReader.getXMLContent();
-        Pattern typePattern;
+
+        String regPattern = "";
         if(period==null)
-        {
-            typePattern = Pattern.compile("<"+Type+">(.+)<\\/"+Type+">");
-            Matcher matcher = typePattern.matcher(xmlContent);
-            if(matcher.find())
-            {
-                return matcher.group(1);
-            }
-        }
+            regPattern = "<"+Type+">(.+)<\\/"+Type+">";
         else
+            regPattern = "<"+Type+"><"+period+">(.+)<\\/"+period+"><\\/"+Type+">";
+
+        Pattern typePattern = Pattern.compile(regPattern);
+        Matcher matcher = typePattern.matcher(xmlContent);
+        if(matcher.find())
         {
-            typePattern = Pattern.compile("<"+Type+"><"+period+">(.+)<\\/"+period+"><\\/"+Type+">");
-            Matcher matcher = typePattern.matcher(xmlContent);
-            if(matcher.find())
-            {
-                return matcher.group(1);
-            }
+            return matcher.group(1);
         }
         return "";
     }
